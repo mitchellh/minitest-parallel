@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = "minitest-parallel"
 
   s.add_dependency "minitest", "~> 2.6.0"
+  s.add_dependency "parallel", "~> 0.5.9"
 
   s.files         = `git ls-files`.split("\n")
   s.executables   = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
