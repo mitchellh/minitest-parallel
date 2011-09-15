@@ -11,7 +11,7 @@ module MiniTest
     end
 
     # You can manual set the # of processes here.
-    def self.parallel_processes==(procs)
+    def self.parallel_processes=(procs)
       @parallel_processes = procs
     end
 
@@ -26,7 +26,7 @@ module MiniTest
     end
 
     def _run_suites_in_parallel(suites, type)
-      result = ::Parallel.map(suites, :in_processes => MiniTest::Parallel.processor_count) do |suite|
+      result = ::Parallel.map(suites, :in_processes => MiniTest::Parallel.parallel_processes) do |suite|
         ret = _run_suite(suite, type)
         {
           :failures         => failures,
