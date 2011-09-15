@@ -10,12 +10,19 @@ module MiniTest
       end
     end
 
-    def self.processor_count=(procs)
-      @processor_count = procs
+    # You can manual set the # of processes here.
+    def self.parallel_processes==(procs)
+      @parallel_processes = procs
     end
 
-    def self.processor_count
-      @processor_count ||= ::Parallel.processor_count
+    # This returns the number of processes to use for executing tests
+    # in parallel. This will use the manually set processes if set,
+    # then fall back to the `PAR` environmental variable if that is set,
+    # and finally will fall back to the number of cores you have.
+    def self.parallel_processes
+      return @parallel_processes if @parallel_processes
+      return ENV["PAR"].to_i if ENV["PAR"]
+      return ::Parallel.processor_count
     end
 
     def _run_suites_in_parallel(suites, type)
